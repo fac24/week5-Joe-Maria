@@ -71,7 +71,9 @@ export default function ShowQuiz(props) {
                 </span>
                 <button
                   href="#"
-                  onClick={() => ref.current.classList.toggle("active")}
+                  onClick={() => {
+                    ref.current.classList.toggle("active");
+                  }}
                 >
                   Reveal answer
                 </button>
