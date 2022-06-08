@@ -5,7 +5,7 @@ import ShowQuiz from "./ShowQuiz";
 function App() {
   const [gameState, setGameState] = React.useState(false);
   // Stretch goal: could have more than two game states (paused) if user wants to continue started game after going back to form
-  const [category, setCategory] = React.useState(21);
+  const [category, setCategory] = React.useState("21");
   const [quizLength, setQuizLength] = React.useState(5);
 
   return (
