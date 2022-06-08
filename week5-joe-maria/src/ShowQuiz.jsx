@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function ShowQuiz(props) {
+  //const [revealAnswer, setRevealAnswer] = React.useState([]);
+
   // There's probably a terser way of doing this 😌
   const gameState = props.gameState;
   // const setGameState = props.setGameState;
@@ -31,7 +33,7 @@ export default function ShowQuiz(props) {
       return <p>Loading your quiz...</p>;
     } else {
       // Game data has loaded! (i.e. async fetch etc. has resolved). Show the game :)
-      // console.log(quizData);
+      console.log(quizData);
 
       // NB: we might call them "questions", but the API calls them "clues", so.. :P
 
@@ -59,10 +61,21 @@ export default function ShowQuiz(props) {
           answer !== "" &&
           answer !== "="
         ) {
+          const ref = React.createRef();
           cluesJsx.push(
             <li className="clue-card" key={id}>
               <div className="clue-card-question">{question}</div>
-              <div className="clue-card-answer">{answer}</div>
+              <div className="clue-card-answer">
+                <span ref={ref} className="hidden">
+                  {answer}
+                </span>
+                <button
+                  href="#"
+                  onClick={() => ref.current.classList.toggle("active")}
+                >
+                  Reveal answer
+                </button>
+              </div>
             </li>
           );
           // We showed a clue, so increment the counter :)
