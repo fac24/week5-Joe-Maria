@@ -5,7 +5,7 @@ export default function ShowQuiz(props) {
 
   // There's probably a terser way of doing this 😌
   const gameState = props.gameState;
-  // const setGameState = props.setGameState;
+  const setGameState = props.setGameState;
   const category = props.category;
   const quizLength = props.quizLength;
 
@@ -91,7 +91,7 @@ export default function ShowQuiz(props) {
           <input
             type="button"
             value="Bin this quiz and make me another!"
-            // onClick={setGameState(false)}
+            onClick={() => setGameState(false)}
           />
           <ul className="clues-list">{cluesJsx}</ul>
         </>
