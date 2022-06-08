@@ -27,11 +27,11 @@ export default function QuizForm(props) {
           <legend>Create your quiz:</legend>
           {categories.map((cat) => {
             return (
-              <label htmlFor={cat.name} key={cat.id}>
+              <label htmlFor={"cat" + cat.id} key={cat.id}>
                 <input
                   type="radio"
                   name="categories"
-                  id={cat.id}
+                  id={"cat" + cat.id}
                   value={cat.id}
                   checked={cat.id === props.category}
                   onChange={(e) => props.setCategory(e.target.value)}
