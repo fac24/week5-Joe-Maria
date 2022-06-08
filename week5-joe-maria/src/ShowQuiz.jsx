@@ -31,7 +31,7 @@ export default function ShowQuiz(props) {
       return <p>Loading your quiz...</p>;
     } else {
       // Game data has loaded! (i.e. async fetch etc. has resolved). Show the game :)
-      console.log(quizData);
+      // console.log(quizData);
 
       // NB: we might call them "questions", but the API calls them "clues", so.. :P
 
