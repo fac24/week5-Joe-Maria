@@ -10,10 +10,10 @@ const categories = [
 ];
 
 export default function QuizForm(props) {
-  // Toggle the gameState on "Generate Quiz" submission
-  function handleGameState(e) {
+  // Set gameState to true on "Generate Quiz" submission
+  function handleFormSubmit(e) {
     e.preventDefault();
-    !props.gameState ? props.setGameState(true) : props.setGameState(false);
+    props.setGameState(true);
   }
 
   // If quiz is in process don't show the form
@@ -22,7 +22,7 @@ export default function QuizForm(props) {
     // If game is not in process show the form
   } else {
     return (
-      <form onSubmit={handleGameState}>
+      <form onSubmit={handleFormSubmit}>
         <fieldset>
           <legend>Create your quiz:</legend>
           {categories.map((cat) => {
