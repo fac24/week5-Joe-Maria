@@ -1,14 +1,16 @@
 import React from "react";
 
-export default function QuizForm(props) {
-  const categories = [
-    { name: "Animals", id: "21" },
-    { name: "World Capitals", id: "78" },
-    { name: "Nature", id: "267" },
-    { name: "Musical Instruments", id: "184" },
-    { name: "Food & Drink", id: "253" },
-  ];
+// Possible categories and respective id's for API call
+const categories = [
+  { name: "Animals", id: "21" },
+  { name: "World Capitals", id: "78" },
+  { name: "Nature", id: "267" },
+  { name: "Musical Instruments", id: "184" },
+  { name: "Food & Drink", id: "253" },
+];
 
+export default function QuizForm(props) {
+  // Toggle the gameState on "Generate Quiz" submission
   function handleGameState(e) {
     e.preventDefault();
     !props.gameState ? props.setGameState(true) : props.setGameState(false);
@@ -20,10 +22,7 @@ export default function QuizForm(props) {
     // If game is not in process show the form
   } else {
     return (
-      <form
-        // On form submit toggle the game state
-        onSubmit={handleGameState}
-      >
+      <form onSubmit={handleGameState}>
         <fieldset>
           <legend>Create your quiz:</legend>
           {categories.map((cat) => {
@@ -55,6 +54,7 @@ export default function QuizForm(props) {
             ></input>
           </label>
           <br></br>
+
           <button type="submit">Generate quiz</button>
         </fieldset>
       </form>
