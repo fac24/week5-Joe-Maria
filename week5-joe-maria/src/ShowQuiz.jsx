@@ -3,6 +3,7 @@ import React from "react";
 export default function ShowQuiz(props) {
   // There's probably a terser way of doing this 😌
   const gameState = props.gameState;
+  // const setGameState = props.setGameState;
   const category = props.category;
   const quizLength = props.quizLength;
 
@@ -30,7 +31,7 @@ export default function ShowQuiz(props) {
       return <p>Loading your quiz...</p>;
     } else {
       // Game data has loaded! (i.e. async fetch etc. has resolved). Show the game :)
-      // console.log(quizData);
+      console.log(quizData);
 
       // NB: we might call them "questions", but the API calls them "clues", so.. :P
 
@@ -48,9 +49,16 @@ export default function ShowQuiz(props) {
         const question = quizData.clues[clueIdx].question;
         const answer = quizData.clues[clueIdx].answer;
 
+        // Free APIs are of ~mixed quality~ :D
+        // We need to catch junk cases here and ignore them!
         // Some questions are blank (and for all we know, some answers might be too).
-        // Don't show them!
-        if (question !== "" && answer !== "") {
+        // Some Qs/As have "=" for some reason. Etc., etc.
+        if (
+          question !== "" &&
+          question !== "=" &&
+          answer !== "" &&
+          answer !== "="
+        ) {
           cluesJsx.push(
             <li className="clue-card" key={id}>
               <div className="clue-card-question">{question}</div>
@@ -65,7 +73,16 @@ export default function ShowQuiz(props) {
         clueIdx++;
       }
 
-      return <ul className="clues-list">{cluesJsx}</ul>;
+      return (
+        <>
+          <input
+            type="button"
+            value="Bin this quiz and make me another!"
+            // onClick={setGameState(false)}
+          />
+          <ul className="clues-list">{cluesJsx}</ul>
+        </>
+      );
     }
   }
 }
