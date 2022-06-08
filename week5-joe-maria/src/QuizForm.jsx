@@ -50,6 +50,7 @@ export default function QuizForm(props) {
               id="quiz-length"
               min="1"
               max="20"
+              value={props.quizLength}
               onChange={(e) => props.setQuizLength(e.target.value)}
             ></input>
           </label>
