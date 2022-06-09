@@ -20,12 +20,11 @@ export default function ShowQuiz(props) {
   }, [category, quizLength]);
   // Do we need gameState to be a dependency too? (Might.. depend, lol)
 
-  if (gameState === false) {
+  if (gameState === "false") {
     // Hide the quiz (a false game state means the form is being used to set it up)
     return null;
-  } else if (gameState === true) {
+  } else if (gameState === "true") {
     // Play the game (show the quiz)
-
     // Do we have game data yet?
     if (quizData === null) {
       // If not, show a loading message:
@@ -99,7 +98,7 @@ export default function ShowQuiz(props) {
           <input
             type="button"
             value="Bin this quiz and make me another!"
-            onClick={() => setGameState(false)}
+            onClick={() => setGameState("false")}
           />
           <ul className="clues-list">{cluesJsx}</ul>
         </>
