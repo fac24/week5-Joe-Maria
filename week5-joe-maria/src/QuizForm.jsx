@@ -22,42 +22,42 @@ export default function QuizForm(props) {
     // If game is not in process show the form
   } else {
     return (
-      <form onSubmit={handleFormSubmit}>
-        <fieldset>
-          <legend>Create your quiz:</legend>
-          {categories.map((cat) => {
-            return (
-              <label htmlFor={"cat" + cat.id} key={cat.id}>
-                <input
-                  type="radio"
-                  name="categories"
-                  id={"cat" + cat.id}
-                  value={cat.id}
-                  checked={cat.id === props.category}
-                  onChange={(e) => props.setCategory(e.target.value)}
-                />
-                {cat.name}
-              </label>
-            );
-          })}
-          <br></br>
+      <form className="generate-form" onSubmit={handleFormSubmit}>
+        <p className="form-promt">Create your quiz! First pick a category:</p>
+        {categories.map((cat) => {
+          return (
+            <label htmlFor={"cat" + cat.id} key={cat.id}>
+              <input
+                type="radio"
+                name="categories"
+                id={"cat" + cat.id}
+                value={cat.id}
+                checked={cat.id === props.category}
+                onChange={(e) => props.setCategory(e.target.value)}
+              />
+              {cat.name}
+            </label>
+          );
+        })}
+        <br></br>
 
-          <label htmlFor="quiz-length">
-            How many questions would you like?
-            <input
-              required
-              type="number"
-              id="quiz-length"
-              min="1"
-              max="20"
-              value={props.quizLength}
-              onChange={(e) => props.setQuizLength(e.target.value)}
-            ></input>
-          </label>
-          <br></br>
+        <label className="form-promt" htmlFor="quiz-length">
+          How many questions would you like?
+          <input
+            required
+            type="number"
+            id="quiz-length"
+            min="1"
+            max="20"
+            value={props.quizLength}
+            onChange={(e) => props.setQuizLength(e.target.value)}
+          ></input>
+        </label>
+        <br></br>
 
-          <button type="submit">Generate quiz</button>
-        </fieldset>
+        <button type="submit" className="generate-button">
+          Generate quiz
+        </button>
       </form>
     );
   }
