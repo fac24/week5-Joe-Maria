@@ -13,14 +13,14 @@ export default function QuizForm(props) {
   // Set gameState to true on "Generate Quiz" submission
   function handleFormSubmit(e) {
     e.preventDefault();
-    props.setGameState(true);
+    props.setGameState("true");
   }
 
   // If quiz is in process don't show the form
-  if (props.gameState) {
+  if (props.gameState === "true") {
     return null;
     // If game is not in process show the form
-  } else {
+  } else if (props.gameState === "false") {
     return (
       <form onSubmit={handleFormSubmit}>
         <fieldset>
