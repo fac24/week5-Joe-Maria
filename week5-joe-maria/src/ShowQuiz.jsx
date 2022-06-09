@@ -19,7 +19,7 @@ export default function ShowQuiz(props) {
 
   // State value and setter for our actual quiz data (questions, answers, etc.)
   const [quizData, setQuizData] = React.useState(null);
-  // const [answerToggles, setAnswerToggles] = React.useState([]);
+  const [errorFeedback, setErrorFeedback] = React.useState("");
 
   const [answerToggles, setAnswerToggles] = React.useState(
     localStorageAnswerToggles
@@ -34,7 +34,10 @@ export default function ShowQuiz(props) {
     fetch(`https://jservice.io/api/category?id=${category}`)
       .then((resolve) => resolve.json())
       .then((resolve) => setQuizData(resolve))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        // console.error(error);
+        setErrorFeedback(`${error}`);
+      });
   }, [category, quizLength]);
   // Do we need gameState to be a dependency too? (Might.. depend, lol)
 
@@ -45,8 +48,17 @@ export default function ShowQuiz(props) {
     // Play the game (show the quiz)
     // Do we have game data yet?
     if (quizData === null) {
-      // If not, show a loading message:
-      return <p>Loading your quiz...</p>;
+      // If not, show a loading or error message:
+      if (errorFeedback === "") {
+        return <div class="message">Loading your quiz...</div>;
+      } else {
+        return (
+          <div class="error">
+            <h3>Sorry, there's been an error!</h3>
+            <p>{errorFeedback}</p>
+          </div>
+        );
+      }
     } else {
       // Game data has loaded! (i.e. async fetch etc. has resolved). Show the game :)
       // console.log(quizData);
