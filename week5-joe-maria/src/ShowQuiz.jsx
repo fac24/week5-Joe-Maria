@@ -31,11 +31,11 @@ export default function ShowQuiz(props) {
 
   React.useEffect(() => {
     setQuizData(null);
-    fetch(`https://jservice.io/api/cat?id=${category}`)
+    fetch(`https://jservice.io/api/category?id=${category}`)
       .then((resolve) => resolve.json())
       .then((resolve) => setQuizData(resolve))
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
         setErrorFeedback(`${error}`);
       });
   }, [category, quizLength]);
@@ -54,7 +54,7 @@ export default function ShowQuiz(props) {
       } else {
         return (
           <div class="error">
-            <h3>There's been an error!</h3>
+            <h3>Sorry, there's been an error!</h3>
             <p>{errorFeedback}</p>
           </div>
         );
