@@ -3,10 +3,20 @@ import QuizForm from "./QuizForm";
 import ShowQuiz from "./ShowQuiz";
 
 function App() {
-  const [gameState, setGameState] = React.useState(false);
+  let localStorageGameState = localStorage.getItem("gameState");
+
+  if (localStorageGameState === null) {
+    localStorageGameState = "false";
+  }
+
+  const [gameState, setGameState] = React.useState(localStorageGameState);
   // Stretch goal: could have more than two game states (paused) if user wants to continue started game after going back to form
   const [category, setCategory] = React.useState("21");
   const [quizLength, setQuizLength] = React.useState(5);
+
+  React.useEffect(() => {
+    window.localStorage.setItem("gameState", gameState);
+  }, [gameState]);
 
   return (
     <div>
