@@ -8,15 +8,26 @@
 * {
   box-sizing: border-box;
   font-family: sans-serif;
-  margin: 0 auto;
+  line-height: 1.25;
+}
+
+html {
+  font-size: 110%;
+}
+
+body {
   background-color: var(--offWhite);
-  max-width: 400px;
+}
+
+#root {
+  margin: 0 auto;
+  max-width: 25rem;
 }
 
 input[type="button"],
 button {
   border: 2px transparent solid;
-  border-radius: 15px;
+  border-radius: 1rem;
   color: var(--offWhite);
   letter-spacing: 1px;
   font-weight: 600;
@@ -26,7 +37,11 @@ button {
 /* Styling for the header component */
 header {
   text-align: start;
-  margin-block-start: 2em;
+  margin-block-start: 2rem;
+}
+
+.potato {
+  margin-right: 1rem;
 }
 
 h1 {
@@ -40,7 +55,7 @@ h1 {
 }
 
 .potato {
-  width: 5em;
+  width: 5rem;
 }
 
 .flex {
@@ -51,25 +66,51 @@ h1 {
 /* Styling for the generate quiz form */
 
 .generate-form {
+  /* background-color: #ffd3b7; */
   margin: 2em auto;
-  max-width: 360px;
-  padding: 20px;
+  /* max-width: 360px; */
+  /* max-width: fit-content; */
+  padding: 1.5rem;
   border: 2px var(--navy) solid;
-  border-radius: 15px;
+  border-radius: 1rem;
+}
+
+.generate-form h2 {
+  margin-top: 0;
+}
+
+.generate-form label {
+  cursor: pointer;
+  display: block;
+  max-width: fit-content;
 }
 
 .generate-form input {
-  margin: 10px;
+  margin: 0.5rem;
 }
 
-.form-promt {
+#quiz-length {
+  /* display: block; */
+  font-size: 100%;
+  padding: 0.25rem;
+  width: 4rem;
+}
+
+.form-prompt {
   font-weight: 600;
+  margin: 1rem 0 0.25rem 0;
+}
+
+.generate-form button,
+.back-button {
+  padding: 0.75rem;
+  display: block;
+  font-size: 100%;
 }
 
 .generate-form button {
   background-color: var(--navy);
-  padding: 10px;
-  display: block;
+  margin-top: 1rem;
 }
 .generate-form button:hover,
 .clue-card button:hover {
@@ -80,9 +121,8 @@ h1 {
 
 .back-button {
   background-color: var(--crimson);
-  display: block;
-  margin: 1em auto;
-  padding: 5px 10px;
+  font-size: 100%;
+  margin: 1rem auto;
 }
 
 .back-button:hover {
@@ -93,26 +133,30 @@ h1 {
 
 .clue-card button {
   background-color: var(--navy);
-  padding: 5px 10px;
-  width: 70px;
+  padding: 0.5rem 0.75rem;
+  width: 5rem;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
-  margin: 1em;
+  margin: 1rem;
 }
 
 .clue-card {
   border: 2px solid var(--navy);
-  padding: 10px;
-  margin-block-end: 1em;
-  border-radius: 10px;
+  padding: 0.75rem;
+  margin-block-end: 1rem;
+  border-radius: 0.75rem;
+}
+
+.clue-card-question {
+  margin-bottom: 0.5rem;
 }
 
 .clue-card-answer {
   font-weight: 600;
-  margin-inline-start: 10px;
+  margin-inline-start: 0.75rem;
   color: var(--navy);
 }
 
