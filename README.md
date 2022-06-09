@@ -14,6 +14,7 @@ FAC 24 week 5 project: Joe & Maria
 
 ## Known issues:
 
+- Random question selection is working in our latest branch, but not deployed yet :)
 - The free quiz API we're using is OK, but it's not brilliant. There might be all sorts of weird typos in the clues/answers!
 - You should receive a different set of questions most of the time, but the randomiser isn't great and the total number of questions isn't huge, so you'll probably see some repetition.
 
