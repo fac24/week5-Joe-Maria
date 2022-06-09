@@ -116,7 +116,7 @@ export default function ShowQuiz(props) {
           <input
             className="back-button"
             type="button"
-            value="Bin this quiz and make me another!"
+            value="&larr; End this quiz"
             onClick={() => {
               setGameState("false");
               // Reset the answer toggles so it doesn't interfere with the next game:
