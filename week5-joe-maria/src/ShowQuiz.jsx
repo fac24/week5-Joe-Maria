@@ -6,6 +6,8 @@ export default function ShowQuiz(props) {
   const setGameState = props.setGameState;
   const category = props.category;
   const quizLength = props.quizLength;
+  // And also how many clues we've checked through from the API response:
+  let clueIdx = 0;
 
   // Don't forget to JSON parse (and stringify) for the localStorage array!
   let localStorageAnswerToggles = JSON.parse(
@@ -38,6 +40,20 @@ export default function ShowQuiz(props) {
   }, [category, quizLength]);
   // Do we need gameState to be a dependency too? (Might.. depend, lol)
 
+  console.log(gameState);
+
+  React.useEffect(() => {
+    createRandomIndex();
+    console.log(clueIdx);
+  }, [gameState]);
+
+  // Generate a random number to specify from what index to start getting questions from API (stops the quiz showing the same questions all the time!)
+  // All categories have at least 115 Q'sso omit a bunch to allow for weird API responses to be skipped and max quiz length from user input
+  function createRandomIndex() {
+    clueIdx = Math.floor(Math.random() * (80 - 0 + 1) + 0);
+    return;
+  }
+
   if (gameState === "false") {
     // Hide the quiz (a false game state means the form is being used to set it up)
     return null;
@@ -58,8 +74,6 @@ export default function ShowQuiz(props) {
 
       // Keep track of how many clues we've shown:
       let numCluesShown = 0;
-      // And also how many clues we've checked through from the API response:
-      let clueIdx = 0;
 
       // Show as many clues as the user asked for:
       while (numCluesShown < Number(quizLength)) {
