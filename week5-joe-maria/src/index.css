@@ -1,4 +1,117 @@
+:root {
+  --offWhite: #ffcaa9;
+  --navy: rgb(4, 4, 78);
+  --grey: rgb(53, 53, 53);
+  --crimson: crimson;
+}
+
 * {
   box-sizing: border-box;
   font-family: sans-serif;
+  margin: 0 auto;
+  background-color: var(--offWhite);
+  max-width: 400px;
+}
+
+input[type="button"],
+button {
+  border: 2px transparent solid;
+  border-radius: 15px;
+  color: var(--offWhite);
+  letter-spacing: 1px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Styling for the header component */
+header {
+  text-align: start;
+  margin-block-start: 2em;
+}
+
+h1 {
+  font-family: "Alfa Slab One", cursive;
+  color: var(--navy);
+}
+
+.subtitle {
+  font-style: italic;
+  color: var(--grey);
+}
+
+.potato {
+  width: 5em;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for the generate quiz form */
+
+.generate-form {
+  margin: 2em auto;
+  max-width: 360px;
+  padding: 20px;
+  border: 2px var(--navy) solid;
+  border-radius: 15px;
+}
+
+.generate-form input {
+  margin: 10px;
+}
+
+.form-promt {
+  font-weight: 600;
+}
+
+.generate-form button {
+  background-color: var(--navy);
+  padding: 10px;
+  display: block;
+}
+.generate-form button:hover,
+.clue-card button:hover {
+  background-color: var(--crimson);
+}
+
+/* Styling for the back button */
+
+.back-button {
+  background-color: var(--crimson);
+  display: block;
+  margin: 1em auto;
+  padding: 5px 10px;
+}
+
+.back-button:hover {
+  border: 2px solid var(--navy);
+}
+
+/* Styling for the quiz itself! */
+
+.clue-card button {
+  background-color: var(--navy);
+  padding: 5px 10px;
+  width: 70px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1em;
+}
+
+.clue-card {
+  border: 2px solid var(--navy);
+  padding: 10px;
+  margin-block-end: 1em;
+  border-radius: 10px;
+}
+
+.clue-card-answer {
+  font-weight: 600;
+  margin-inline-start: 10px;
+  color: var(--navy);
 }
