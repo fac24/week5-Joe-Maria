@@ -23,7 +23,8 @@ export default function QuizForm(props) {
   } else if (props.gameState === "false") {
     return (
       <form className="generate-form" onSubmit={handleFormSubmit}>
-        <p className="form-promt">Create your quiz! First pick a category:</p>
+        <h2>Create your quiz!</h2>
+        <p className="form-prompt">Pick a category:</p>
         {categories.map((cat) => {
           return (
             <label htmlFor={"cat" + cat.id} key={cat.id}>
@@ -39,9 +40,8 @@ export default function QuizForm(props) {
             </label>
           );
         })}
-        <br></br>
 
-        <label className="form-promt" htmlFor="quiz-length">
+        <label className="form-prompt" htmlFor="quiz-length">
           How many questions would you like?
           <input
             required
@@ -53,10 +53,9 @@ export default function QuizForm(props) {
             onChange={(e) => props.setQuizLength(e.target.value)}
           ></input>
         </label>
-        <br></br>
 
         <button type="submit" className="generate-button">
-          Generate quiz
+          Generate quiz &rarr;
         </button>
       </form>
     );
