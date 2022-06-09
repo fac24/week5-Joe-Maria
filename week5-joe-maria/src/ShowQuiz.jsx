@@ -7,9 +7,24 @@ export default function ShowQuiz(props) {
   const category = props.category;
   const quizLength = props.quizLength;
 
+  // let localStorageAnswerToggles = localStorage.getItem("answerToggles");
+
+  // if (localStorageAnswerToggles === null) {
+  // All answers are hidden by default
+  // localStorageAnswerToggles = [];
+  // }
+
   // State value and setter for our actual quiz data (questions, answers, etc.)
   const [quizData, setQuizData] = React.useState(null);
   const [answerToggles, setAnswerToggles] = React.useState([]);
+
+  // const [answerToggles, setAnswerToggles] = React.useState(
+  //   localStorageAnswerToggles
+  // );
+
+  // React.useEffect(() => {
+  //   window.localStorage.setItem("answerToggles", answerToggles);
+  // }, [answerToggles]);
 
   React.useEffect(() => {
     setQuizData(null);
