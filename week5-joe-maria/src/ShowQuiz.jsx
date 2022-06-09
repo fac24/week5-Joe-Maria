@@ -9,6 +9,7 @@ export default function ShowQuiz(props) {
 
   // State value and setter for our actual quiz data (questions, answers, etc.)
   const [quizData, setQuizData] = React.useState(null);
+  const [answerToggles, setAnswerToggles] = React.useState([]);
 
   React.useEffect(() => {
     setQuizData(null);
@@ -62,7 +63,27 @@ export default function ShowQuiz(props) {
           cluesJsx.push(
             <li className="clue-card" key={id}>
               <div className="clue-card-question">{question}</div>
-              <div className="clue-card-answer">{answer}</div>
+              <button
+                onClick={() =>
+                  setAnswerToggles((oldArray) => {
+                    const newArray = [...oldArray];
+                    if (oldArray.indexOf(id) === -1) {
+                      newArray.push(id);
+                    } else {
+                      newArray.splice(oldArray.indexOf(id), 1);
+                    }
+                    return newArray;
+                  })
+                }
+              >
+                {answerToggles.includes(id) ? "Hide" : "Reveal"}
+              </button>
+              <div
+                className="clue-card-answer"
+                hidden={answerToggles.includes(id) ? false : true}
+              >
+                {answer}
+              </div>
             </li>
           );
           // We showed a clue, so increment the counter :)
