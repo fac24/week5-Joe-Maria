@@ -55,7 +55,7 @@ h1 {
   max-width: 360px;
   padding: 20px;
   border: 2px var(--navy) solid;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .generate-form input {
