@@ -7,9 +7,27 @@ export default function ShowQuiz(props) {
   const category = props.category;
   const quizLength = props.quizLength;
 
+  // Don't forget to JSON parse (and stringify) for the localStorage array!
+  let localStorageAnswerToggles = JSON.parse(
+    localStorage.getItem("answerToggles")
+  );
+
+  if (localStorageAnswerToggles === null) {
+    // All answers are hidden by default
+    localStorageAnswerToggles = [];
+  }
+
   // State value and setter for our actual quiz data (questions, answers, etc.)
   const [quizData, setQuizData] = React.useState(null);
-  const [answerToggles, setAnswerToggles] = React.useState([]);
+  // const [answerToggles, setAnswerToggles] = React.useState([]);
+
+  const [answerToggles, setAnswerToggles] = React.useState(
+    localStorageAnswerToggles
+  );
+
+  React.useEffect(() => {
+    window.localStorage.setItem("answerToggles", JSON.stringify(answerToggles));
+  }, [answerToggles]);
 
   React.useEffect(() => {
     setQuizData(null);
@@ -20,12 +38,11 @@ export default function ShowQuiz(props) {
   }, [category, quizLength]);
   // Do we need gameState to be a dependency too? (Might.. depend, lol)
 
-  if (gameState === false) {
+  if (gameState === "false") {
     // Hide the quiz (a false game state means the form is being used to set it up)
     return null;
-  } else if (gameState === true) {
+  } else if (gameState === "true") {
     // Play the game (show the quiz)
-
     // Do we have game data yet?
     if (quizData === null) {
       // If not, show a loading message:
@@ -45,7 +62,7 @@ export default function ShowQuiz(props) {
       let clueIdx = 0;
 
       // Show as many clues as the user asked for:
-      while (numCluesShown < quizLength) {
+      while (numCluesShown < Number(quizLength)) {
         const id = quizData.clues[clueIdx].id;
         const question = quizData.clues[clueIdx].question;
         const answer = quizData.clues[clueIdx].answer;
@@ -99,7 +116,11 @@ export default function ShowQuiz(props) {
           <input
             type="button"
             value="Bin this quiz and make me another!"
-            onClick={() => setGameState(false)}
+            onClick={() => {
+              setGameState("false");
+              // Reset the answer toggles so it doesn't interfere with the next game:
+              setAnswerToggles([]);
+            }}
           />
           <ul className="clues-list">{cluesJsx}</ul>
         </>
