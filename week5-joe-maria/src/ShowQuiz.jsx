@@ -95,12 +95,12 @@ export default function ShowQuiz(props) {
               >
                 {answerToggles.includes(id) ? "Hide" : "Reveal"}
               </button>
-              <div
+              <span
                 className="clue-card-answer"
                 hidden={answerToggles.includes(id) ? false : true}
               >
                 {answer}
-              </div>
+              </span>
             </li>
           );
           // We showed a clue, so increment the counter :)
@@ -114,6 +114,7 @@ export default function ShowQuiz(props) {
       return (
         <>
           <input
+            className="back-button"
             type="button"
             value="Bin this quiz and make me another!"
             onClick={() => {
