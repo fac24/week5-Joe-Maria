@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "./Header";
 import QuizForm from "./QuizForm";
 import ShowQuiz from "./ShowQuiz";
 
@@ -10,7 +11,7 @@ function App() {
 
   return (
     <div>
-      <h1>Hello world!</h1>
+      <Header />
       <QuizForm
         gameState={gameState}
         setGameState={setGameState}
