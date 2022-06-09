@@ -1,6 +1,13 @@
 import React from "react";
 
 export default function ShowQuiz(props) {
+  function getRandomStartIndex() {
+    // Min 0, max 80.
+    // We set max 80 because our smallest category has ~115 questions.
+    // So accounting for some broken Qs, we should still be able to let users select 20 Qs.
+    return Math.floor(Math.random() * (80 - 0 + 1) + 0);
+  }
+
   // There's probably a terser way of doing this 😌
   const gameState = props.gameState;
   const setGameState = props.setGameState;
@@ -20,8 +27,7 @@ export default function ShowQuiz(props) {
   }
 
   if (localStorageRandomStartIndex === null) {
-    localStorageRandomStartIndex = Math.floor(Math.random() * (80 - 0 + 1) + 0);
-    console.log(localStorageRandomStartIndex);
+    localStorageRandomStartIndex = getRandomStartIndex();
   }
 
   // State value and setter for our actual quiz data (questions, answers, etc.)
@@ -70,13 +76,16 @@ export default function ShowQuiz(props) {
 
       // Keep track of how many clues we've shown:
       let numCluesShown = 0;
-      // And also how many clues we've checked through from the API response:
-      let clueID = 0;
+
+      // clueIdx keeps track of how many clues we've checked through from the API response.
+      // It gets the random start index, but importantly we *don't* increment randomStartIndex itself!
+      let clueIdx = randomStartIndex;
+
       // Show as many clues as the user asked for:
       while (numCluesShown < Number(quizLength)) {
-        const id = quizData.clues[clueID].id;
-        const question = quizData.clues[clueID].question;
-        const answer = quizData.clues[clueID].answer;
+        const id = quizData.clues[clueIdx].id;
+        const question = quizData.clues[clueIdx].question;
+        const answer = quizData.clues[clueIdx].answer;
 
         // Free APIs are of ~mixed quality~ :D
         // We need to catch junk cases here and ignore them!
@@ -119,8 +128,7 @@ export default function ShowQuiz(props) {
         }
         // Regardless of whether we showed a clue or not, move on to the next one
         // from the API response on the next iteration of this loop.
-        //  setRandomStartIndex((previousIndex) => previousIndex + 1);
-        clueID++;
+        clueIdx++;
       }
 
       return (
@@ -133,7 +141,8 @@ export default function ShowQuiz(props) {
               setGameState("false");
               // Reset the answer toggles so it doesn't interfere with the next game:
               setAnswerToggles([]);
-              setRandomStartIndex(null);
+              // Get a new random start index for the next game:
+              setRandomStartIndex(getRandomStartIndex());
             }}
           />
           <ul className="clues-list">{cluesJsx}</ul>
