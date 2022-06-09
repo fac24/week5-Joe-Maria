@@ -159,3 +159,29 @@ ul {
   margin-inline-start: 0.75rem;
   color: var(--navy);
 }
+
+.error,
+.message {
+  margin: 2rem;
+  max-width: fit-content;
+  padding: 1rem;
+}
+
+.error {
+  background-color: lightsalmon;
+  border: 1px solid;
+  border-color: salmon;
+}
+
+.message {
+  /* background-color: antiquewhite; */
+  /* border-color: grey; */
+}
+
+.error h3 {
+  margin-top: 0;
+}
+
+.error p {
+  font-family: monospace;
+}
