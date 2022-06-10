@@ -68,10 +68,10 @@ export default function ShowQuiz(props) {
     if (quizData === null) {
       // If not, show a loading or error message:
       if (errorFeedback === "") {
-        return <div class="message">Loading your quiz...</div>;
+        return <div className="message">Loading your quiz...</div>;
       } else {
         return (
-          <div class="error">
+          <div className="error">
             <h3>Sorry, there's been an error!</h3>
             <p>{errorFeedback}</p>
           </div>
