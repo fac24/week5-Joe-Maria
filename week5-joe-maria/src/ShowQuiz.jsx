@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStorageState } from "./App";
+import ClueCard from "./ClueCard";
 
 export default function ShowQuiz(props) {
   function getRandomStartIndex() {
@@ -86,30 +87,14 @@ export default function ShowQuiz(props) {
           answer !== "="
         ) {
           cluesJsx.push(
-            <li className="clue-card" key={id}>
-              <div className="clue-card-question">{question}</div>
-              <button
-                onClick={() =>
-                  setAnswerToggles((oldArray) => {
-                    const newArray = [...oldArray];
-                    if (oldArray.indexOf(id) === -1) {
-                      newArray.push(id);
-                    } else {
-                      newArray.splice(oldArray.indexOf(id), 1);
-                    }
-                    return newArray;
-                  })
-                }
-              >
-                {answerToggles.includes(id) ? "Hide" : "Reveal"}
-              </button>
-              <span
-                className="clue-card-answer"
-                hidden={answerToggles.includes(id) ? false : true}
-              >
-                {answer}
-              </span>
-            </li>
+            <ClueCard
+              key={id}
+              id={id}
+              question={question}
+              answerToggles={answerToggles}
+              setAnswerToggles={setAnswerToggles}
+              answer={answer}
+            />
           );
           // We showed a clue, so increment the counter :)
           numCluesShown++;
