@@ -1,5 +1,7 @@
 import React from "react";
 import { useLocalStorageState } from "./App";
+import ClueCard from "./ClueCard";
+import ShowMessage from "./ShowMessage";
 
 export default function ShowQuiz(props) {
   function getRandomStartIndex() {
@@ -24,7 +26,9 @@ export default function ShowQuiz(props) {
   );
 
   React.useEffect(() => {
+    // Reset quizData and errorFeedback before each new fetch
     setQuizData(null);
+    setErrorFeedback("");
     fetch(`https://jservice.io/api/category?id=${category}`)
       .then((resolve) => resolve.json())
       .then((resolve) => setQuizData(resolve))
@@ -43,16 +47,7 @@ export default function ShowQuiz(props) {
     // Do we have game data yet?
     if (quizData === null) {
       // If not, show a loading or error message:
-      if (errorFeedback === "") {
-        return <div className="message">Loading your quiz...</div>;
-      } else {
-        return (
-          <div className="error">
-            <h3>Sorry, there's been an error!</h3>
-            <p>{errorFeedback}</p>
-          </div>
-        );
-      }
+      return <ShowMessage errorFeedback={errorFeedback} />;
     } else {
       // Game data has loaded! (i.e. async fetch etc. has resolved). Show the game :)
       // console.log(quizData);
@@ -86,30 +81,14 @@ export default function ShowQuiz(props) {
           answer !== "="
         ) {
           cluesJsx.push(
-            <li className="clue-card" key={id}>
-              <div className="clue-card-question">{question}</div>
-              <button
-                onClick={() =>
-                  setAnswerToggles((oldArray) => {
-                    const newArray = [...oldArray];
-                    if (oldArray.indexOf(id) === -1) {
-                      newArray.push(id);
-                    } else {
-                      newArray.splice(oldArray.indexOf(id), 1);
-                    }
-                    return newArray;
-                  })
-                }
-              >
-                {answerToggles.includes(id) ? "Hide" : "Reveal"}
-              </button>
-              <span
-                className="clue-card-answer"
-                hidden={answerToggles.includes(id) ? false : true}
-              >
-                {answer}
-              </span>
-            </li>
+            <ClueCard
+              key={id}
+              id={id}
+              question={question}
+              answerToggles={answerToggles}
+              setAnswerToggles={setAnswerToggles}
+              answer={answer}
+            />
           );
           // We showed a clue, so increment the counter :)
           numCluesShown++;
