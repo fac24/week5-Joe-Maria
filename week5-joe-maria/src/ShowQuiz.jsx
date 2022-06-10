@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocalStorageState } from "./App";
 
 export default function ShowQuiz(props) {
   function getRandomStartIndex() {
@@ -8,44 +9,19 @@ export default function ShowQuiz(props) {
     return Math.floor(Math.random() * (80 - 0 + 1) + 0);
   }
 
-  // There's probably a terser way of doing this 😌
-  const gameState = props.gameState;
-  const setGameState = props.setGameState;
-  const category = props.category;
-  const quizLength = props.quizLength;
-
-  // Don't forget to JSON parse (and stringify) for the localStorage array!
-  let localStorageAnswerToggles = JSON.parse(
-    localStorage.getItem("answerToggles")
-  );
-
-  let localStorageRandomStartIndex = localStorage.getItem("randomStartIndex");
-
-  if (localStorageAnswerToggles === null) {
-    // All answers are hidden by default
-    localStorageAnswerToggles = [];
-  }
-
-  if (localStorageRandomStartIndex === null) {
-    localStorageRandomStartIndex = getRandomStartIndex();
-  }
+  const { gameState, setGameState, category, quizLength } = props;
 
   // State value and setter for our actual quiz data (questions, answers, etc.)
   const [quizData, setQuizData] = React.useState(null);
   const [errorFeedback, setErrorFeedback] = React.useState("");
-
-  const [answerToggles, setAnswerToggles] = React.useState(
-    localStorageAnswerToggles
+  const [answerToggles, setAnswerToggles] = useLocalStorageState(
+    "answerToggles",
+    []
   );
-
-  const [randomStartIndex, setRandomStartIndex] = React.useState(
-    localStorageRandomStartIndex
+  const [randomStartIndex, setRandomStartIndex] = useLocalStorageState(
+    "randomStartIndex",
+    getRandomStartIndex()
   );
-
-  React.useEffect(() => {
-    window.localStorage.setItem("answerToggles", JSON.stringify(answerToggles));
-    window.localStorage.setItem("randomStartIndex", randomStartIndex);
-  }, [answerToggles, randomStartIndex]);
 
   React.useEffect(() => {
     setQuizData(null);

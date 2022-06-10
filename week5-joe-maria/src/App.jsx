@@ -3,37 +3,26 @@ import Header from "./Header";
 import QuizForm from "./QuizForm";
 import ShowQuiz from "./ShowQuiz";
 
-function App() {
+function useLocalStorageState(key, initial) {
   // Try and get some values from localStorage:
-  let localStorageGameState = localStorage.getItem("gameState");
-  let localStorageCategory = localStorage.getItem("category");
-  let localStorageQuizLength = localStorage.getItem("quizLength");
-
   // Set up defaults if there's nothing in localStorage (i.e. the values are null):
-  if (localStorageGameState === null) {
-    // Game is not playing by default
-    localStorageGameState = "false";
-  }
-  if (localStorageCategory === null) {
-    // Category 21 ("Animals") is default
-    localStorageCategory = "21";
-  }
-  if (localStorageQuizLength === null) {
-    // 5 "clues" is default
-    localStorageQuizLength = "5";
-  }
-
-  // Set up state values etc.
-  const [gameState, setGameState] = React.useState(localStorageGameState);
-  const [category, setCategory] = React.useState(localStorageCategory);
-  const [quizLength, setQuizLength] = React.useState(localStorageQuizLength);
+  const [value, setValue] = React.useState(() => {
+    return JSON.parse(localStorage.getItem(key)) || initial;
+  });
 
   // localStorage is a side-effect: keep track of these
   React.useEffect(() => {
-    window.localStorage.setItem("gameState", gameState);
-    window.localStorage.setItem("category", category);
-    window.localStorage.setItem("quizLength", quizLength);
-  }, [gameState, category, quizLength]);
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [value]);
+
+  return [value, setValue];
+}
+
+function App() {
+  // Set up state values etc.
+  const [gameState, setGameState] = useLocalStorageState("gameState", "false");
+  const [category, setCategory] = useLocalStorageState("category", "21");
+  const [quizLength, setQuizLength] = useLocalStorageState("quizLength", "5");
 
   return (
     <div>
@@ -56,4 +45,4 @@ function App() {
   );
 }
 
-export default App;
+export { App, useLocalStorageState };
