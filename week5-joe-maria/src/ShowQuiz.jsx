@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStorageState } from "./App";
+import BackButton from "./BackButton";
 import ClueCard from "./ClueCard";
 import ShowMessage from "./ShowMessage";
 
@@ -47,7 +48,18 @@ export default function ShowQuiz(props) {
     // Do we have game data yet?
     if (quizData === null) {
       // If not, show a loading or error message:
-      return <ShowMessage errorFeedback={errorFeedback} />;
+      return (
+        <>
+          <BackButton
+            setGameState={setGameState}
+            setAnswerToggles={setAnswerToggles}
+            setRandomStartIndex={setRandomStartIndex}
+            getRandomStartIndex={getRandomStartIndex}
+            label="&larr; Back to form"
+          />
+          <ShowMessage errorFeedback={errorFeedback} />
+        </>
+      );
     } else {
       // Game data has loaded! (i.e. async fetch etc. has resolved). Show the game :)
       // console.log(quizData);
@@ -100,17 +112,12 @@ export default function ShowQuiz(props) {
 
       return (
         <>
-          <input
-            className="back-button"
-            type="button"
-            value="&larr; End this quiz"
-            onClick={() => {
-              setGameState("false");
-              // Reset the answer toggles so it doesn't interfere with the next game:
-              setAnswerToggles([]);
-              // Get a new random start index for the next game:
-              setRandomStartIndex(getRandomStartIndex());
-            }}
+          <BackButton
+            setGameState={setGameState}
+            setAnswerToggles={setAnswerToggles}
+            setRandomStartIndex={setRandomStartIndex}
+            getRandomStartIndex={getRandomStartIndex}
+            label="&larr; End this quiz"
           />
           <ul className="clues-list">{cluesJsx}</ul>
         </>
