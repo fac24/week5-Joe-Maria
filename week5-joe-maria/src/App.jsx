@@ -7,12 +7,12 @@ function useLocalStorageState(key, initial) {
   // Try and get some values from localStorage:
   // Set up defaults if there's nothing in localStorage (i.e. the values are null):
   const [value, setValue] = React.useState(() => {
-    return localStorage.getItem(key) || initial;
+    return JSON.parse(localStorage.getItem(key)) || initial;
   });
 
   // localStorage is a side-effect: keep track of these
   React.useEffect(() => {
-    window.localStorage.setItem(key, value);
+    window.localStorage.setItem(key, JSON.stringify(value));
   }, [value]);
 
   return [value, setValue];
@@ -45,4 +45,4 @@ function App() {
   );
 }
 
-export default App;
+export { App, useLocalStorageState };
